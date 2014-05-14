@@ -1,0 +1,45 @@
+<!doctype html>
+<html ng-app="angularCustApp">
+<head>
+    <title>Steve's Augular Test App</title>
+    <link href="styles.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body ng-controller="CustomersController">
+        <h2>Customers</h2>
+        Filter: <input type="text" ng-model="customerFilter.name" />
+        <br/><br/>
+
+        <ul>
+            <li ng-repeat="cust in customers">
+                {{ cust.name  }}
+            </li>
+        </ul>
+
+        <table>
+            <tr >
+                <th ng-click="doSort('name')">Name</th>
+                <th ng-click="doSort('city')">City</th>
+                <th ng-click="doSort('orderTotal')">Order</th>
+                <th ng-click="doSort('joined')">Joined</th>
+                <th ng-click="refreshImages()">Random Picture</th>
+            </tr>
+            <tr ng-repeat="cust in customers | filter:customerFilter | orderBy:sortBy:reverse" >
+                <td>{{ cust.name }} </td>
+                <td>{{ cust.city }} </td>
+                <td>{{ cust.orderTotal | currency }} </td>
+                <td>{{ cust.joined | date:'longDate' }} </td>
+                <td><a href="{{cust.pic.link}}" target="_blank"><img ng-src="{{cust.pic.images.low_resolution.url}}" /></a></td>
+            </tr>
+        </table>
+        <br/>
+    <span><b>Total customers: &nbsp;&nbsp;&nbsp; {{ customers.length }} </b></span>
+
+    <script src="angular.js"></script>
+    <script src="angular-resource.js"></script>
+    <script src="app/app.js"></script>
+    <script src="app/controllers/CustomersController.js"></script>
+</body>
+
+</html>
