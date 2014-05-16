@@ -13,39 +13,68 @@
         }]);
 
     var CustomersController =
-        function ($scope, $timeout, instagram) {
+        function ($scope, $log, $window,instagram, customersFactory, appSettings) {
             $scope.sortBy = 'name';
             $scope.reverse = false;
             $scope.pics = [];
-            var i;
+            $scope.customers = [];
+			$scope.appSettings = appSettings;
 
-            $scope.customers = [
-                {joined: '1965-25-01', name: 'Zed', city: 'Las Vegas', orderTotal: 19.99, pic: ''},
-                {joined: '2014-01-01', name: 'Dave', city: 'Camarillo', orderTotal: 9.999534, pic: ''},
-                {joined: '2014-02-02', name: 'Drew', city: 'LA', orderTotal: 9.01, pic: ''},
-                {joined: '2014-03-01', name: 'Jennifer', city: 'Napa', orderTotal: 9.01, pic: '' } ];
+            function init() {
+                customersFactory.getCustomers()
+					.success( function(customers) {
+						$log.log("getCustomers.success: Yea!");
+						$scope.customers = customers;
+					})
+					.error( function(data, status, headers, config) {
+						$log.log("getCustomers.error: " + status);
+						console.log( status );
+					});
+            }
+
+            init();
 
             $scope.doSort = function (propName) {
                 $scope.sortBy = propName;
                 $scope.reverse =  !$scope.reverse;
             };
 
-            // Call the service (once?) when the controller is first invoked
+			$scope.deleteCustomer = function (customerId) {
+				customersFactory.deleteCustomer(customerId).success( function(status) {
+					if( status) {
+						for(var i=0, len=$scope.customers.length; i < len; i++) {
+							if ($scope.customers[i].id === customerId ) {
+								$scope.customers.splice(i,1);
+								break;
+							}
+						}
+					}
+					else {
+						$window.alert('Unable to delete customer #' + customerId);
+					}
+				})
+				.error(function(data, status, headers, config) {
+					$window.alert('Delete error ' + data + ' ' + status);
+				});
 
+			}
 
+            // Call the service when the column header is clicked
             $scope.refreshImages = function () {
                 instagram.fetchPopular(function (data) {
                     $scope.pics = data;
 
-                    for (i = 0; i < $scope.customers.length; i++) {
+                    for (var i = 0; i < $scope.customers.length; i++) {
                         $scope.customers[i].pic = data[i];
                     }
                 });
             };
 
+            // Call the service when the controller is first invoked
             $scope.refreshImages();
         };
 
+    CustomersController.$inject = ['$scope', '$log', '$window', 'instagram', 'customersFactory', 'appSettings'];
     angular.module('angularCustApp').controller('CustomersController', CustomersController);
 
 }());
