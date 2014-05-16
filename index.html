@@ -2,46 +2,36 @@
 <html ng-app="angularCustApp">
 <head>
     <title>Steve's Augular Test App</title>
-    <link href="styles.css" rel="stylesheet" type="text/css" />
-
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="styles/styles.css" rel="stylesheet" type="text/css" />
+    <link href="styles/animations.css" rel="stylesheet" type="text/css" />
 </head>
 
-<body ng-controller="CustomersController">
-    <div class="outer">
-    <h2>Steve's Customers</h2>
-    <span class="filter">Filter: </span><input type="text" ng-model="customerFilter.name" />
-    <br/><br/>
+<body>
+		<header>
+			<nav class="navbar navbar-default">
+				<ul class="nav navbar-nav">
+					<li><a href="#/customers">Customers</a></li>
+					<li><a href="#/orders">Orders</a></li>
+				</ul>
+			</nav>
+		</header>
 
-    <table>
-        <tr >
-            <th ng-click="doSort('name')">Name</th>
-            <th ng-click="doSort('city')">City</th>
-            <th ng-click="doSort('orderTotal')">Order</th>
-            <th ng-click="doSort('joined')">Joined</th>
-            <th ng-click="refreshImages()">Random Picture</th>
-        </tr>
-        <tr ng-repeat="cust in customers | filter:customerFilter | orderBy:sortBy:reverse" >
-            <td>{{ cust.name }} </td>
-            <td>{{ cust.city }} </td>
-            <td>{{ cust.orderTotal | currency }} </td>
-            <td>{{ cust.joined | date:'longDate' }} </td>
-            <td><a href="{{cust.pic.link}}" target="_blank"><img ng-src="{{cust.pic.images.low_resolution.url}}" /></a></td>
-        </tr>
-    </table>
+		<main>
+        	<div ng-view class="slide-animation"></div>
+		</main>
 
-    <br/>
-    <span class="total">Total customers: &nbsp;&nbsp;&nbsp; {{ customers.length }} </span>
-
-    <br/>
-    <span class="disclaimer">Disclaimer:  These are random pictures from instagram, this app doesn't pick 'em, it just displays 'em!</span>
-
-    </div>
-    <div id="right"></div>
-
-    <script src="angular.js"></script>
-    <script src="angular-resource.js"></script>
+    <script src="scripts/angular.js"></script>
+    <script src="scripts/angular-route.js"></script>
+	<script src="scripts/angular-animate.js"></script>
+    <script src="scripts/angular-resource.js"></script>
     <script src="app/app.js"></script>
     <script src="app/controllers/CustomersController.js"></script>
+    <script src="app/controllers/allOrdersController.js"></script>
+    <script src="app/controllers/ordersController.js"></script>
+    <script src="app/services/customersFactory.js"></script>
+	<script src="app/services/values.js"></script>
 </body>
 
 </html>
