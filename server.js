@@ -33,7 +33,7 @@ app.get('/orders', function(req, res) {
     res.json(orders);
 });
 
-app.get('/customerDelete/:id', function(req, res) {
+app.delete('/customerDelete/:id', function(req, res) {
     var customerId = parseInt(req.params.id);
     var data = { status: true };
 

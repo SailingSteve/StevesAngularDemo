@@ -1,9 +1,11 @@
 (function() {
 
-    var AllOrdersController = function ($scope, customersFactory) {
+    var AllOrdersController = function ($scope, customersFactory, appSettings) {
         $scope.orders = null;
         $scope.ordersTotal = 0.0;
         $scope.totalType;
+		$scope.appSettings = appSettings;
+
 
         function init() {
              customersFactory.getOrders()
@@ -28,7 +30,7 @@
         init();
     };
 
-    AllOrdersController.$inject = ['$scope', 'customersFactory'];
+    AllOrdersController.$inject = ['$scope', 'customersFactory', 'appSettings'];
 
     angular.module('angularCustApp')
       .controller('AllOrdersController', AllOrdersController);

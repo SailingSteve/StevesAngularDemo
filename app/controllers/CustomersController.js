@@ -13,7 +13,7 @@
         }]);
 
     var CustomersController =
-        function ($scope, $log, $window,instagram, customersFactory, appSettings) {
+        function ($scope, $log, $window, instagram, customersFactory, appSettings) {
             $scope.sortBy = 'name';
             $scope.reverse = false;
             $scope.pics = [];

@@ -1,35 +1,35 @@
-    <h2>{{appSettings.title}}</h2>
-    <span class="filter">Filter: </span><input type="text" ng-model="customerFilter.name" />
-    <br/><br/>
+<h2>{{appSettings.title}}</h2>
+<span class="filter">Filter: </span><input type="text" ng-model="customerFilter.name" />
+<br/><br/>
 
-    <table class="table">
-        <tr >
-            <th ng-click="doSort('name')">Name</th>
-            <th ng-click="doSort('city')">City</th>
-            <th ng-click="doSort('orderTotal')">Order</th>
-            <th ng-click="doSort('joined')">Joined</th>
-            <th ng-click="refreshImages()">Random Picture</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-      </tr>
-        <tr ng-repeat="cust in customers | filter:customerFilter | orderBy:sortBy:reverse" class="repeat-animation">
-            <td>{{ cust.name }} </td>
-            <td>{{ cust.city }} </td>
-            <td>{{ cust.orderTotal | currency }} </td>
-            <td>{{ cust.joined | date:'longDate' }} </td>
-            <td><a href="{{cust.pic.link}}" target="_blank">
-                <img ng-src="{{cust.pic.images.low_resolution.url}}" /></a></td>
-            <td><a href="#/orders/{{ cust.id }}">View Orders</a></td>
-			<td class="center"><span class="glyphicon glyphicon-remove delete"
-									 ng-click="deleteCustomer(cust.id)"></span></td>
-        </tr>
-    </table>
+<table class="table">
+	<tr >
+		<th ng-click="doSort('name')">Name</th>
+		<th ng-click="doSort('city')">City</th>
+		<th ng-click="doSort('orderTotal')">Order</th>
+		<th ng-click="doSort('joined')">Joined</th>
+		<th ng-click="refreshImages()">Random Picture</th>
+		<th>&nbsp;</th>
+		<th>&nbsp;</th>
+  </tr>
+	<tr ng-repeat="cust in customers | filter:customerFilter | orderBy:sortBy:reverse" class="repeat-animation">
+		<td>{{ cust.name }} </td>
+		<td>{{ cust.city }} </td>
+		<td>{{ cust.orderTotal | currency }} </td>
+		<td>{{ cust.joined | date:'longDate' }} </td>
+		<td><a href="{{cust.pic.link}}" target="_blank">
+			<img ng-src="{{cust.pic.images.low_resolution.url}}" /></a></td>
+		<td><a href="#/orders/{{ cust.id }}">View Orders</a></td>
+		<td class="center"><span class="glyphicon glyphicon-remove delete"
+								 ng-click="deleteCustomer(cust.id)"></span></td>
+	</tr>
+</table>
 
-    <br/>
-    <span class="total">Total customers: &nbsp;&nbsp;&nbsp; {{ customers.length }} </span>
+<br/>
+<span class="total">Total customers: &nbsp;&nbsp;&nbsp; {{ customers.length }} </span>
 
-    <br/>
-	<span class="verticalSpacer">&nbsp;</span>
-    <p class="text-center">Disclaimer:  These pictures are from the live "most popular" Instagram API</p>
-	<br/>
-	<p class="text-center"><i>Version: {{ appSettings.version }} Copyright Steve, 2014</i></p>
+<br/>
+<span class="verticalSpacer">&nbsp;</span>
+<p class="text-center">Disclaimer:  These pictures are from the live Instagram API that serves "most popular" images</p>
+<br/>
+<p class="text-center"><i>Version: {{ appSettings.version }} Copyright 2014 Steve</i></p>

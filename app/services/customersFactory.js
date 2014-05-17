@@ -15,7 +15,7 @@
         };
 
         factory.deleteCustomer = function(customerId) {
-            return $http.get('/customerDelete/' + customerId);
+            return $http.delete('/customerDelete/' + customerId);
         };
 
         return factory;
